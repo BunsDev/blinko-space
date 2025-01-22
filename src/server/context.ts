@@ -12,7 +12,7 @@ export type User = {
 export async function createContext(
   opts: trpcNext.CreateNextContextOptions,
 ) {
-  const token = await getToken({ req: opts.req, secret: process.env.NEXTAUTH_SECRE }) as User;
+  const token = await getToken({ req: opts.req, secret: process.env.NEXTAUTH_SECRET }) as User;
   if (!token?.sub) {
     return {} as User;
   }
