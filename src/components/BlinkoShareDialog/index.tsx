@@ -47,7 +47,7 @@ export const BlinkoShareDialog = observer(({ defaultSettings }: ShareDialogProps
   const [expiryType, setExpiryType] = useState<string>(() => {
     return defaultSettings.expiryDate ? "custom" : "never";
   });
-  const [isPublic, setIsPublic] = useState<boolean>(defaultSettings.password ? false : true);
+  const [isPublic, setIsPublic] = useState(!defaultSettings.password);
   const [isShare, setIsShare] = useState<boolean>(defaultSettings.isShare ?? false);
 
   const [shareUrl, setShareUrl] = useState<string>(defaultSettings?.shareUrl ?? '');
@@ -59,7 +59,7 @@ export const BlinkoShareDialog = observer(({ defaultSettings }: ShareDialogProps
       return dayjs(settings.expiryDate).format('YYYY-MM-DD');
     }
     return t("select-expiry-time");
-  }, [expiryType, settings.expiryDate]);
+  }, [expiryType, settings.expiryDate, t]);
 
   const handleExpiryChange = (type: string) => {
     setExpiryType(type);
@@ -226,6 +226,7 @@ export const BlinkoShareDialog = observer(({ defaultSettings }: ShareDialogProps
           isShare && (
             <Button variant="flat" className="w-full" onPress={() => {
               RootStore.Get(BlinkoStore).shareNote.call({
+                // biome-ignore lint/style/noNonNullAssertion: <explanation>
                 id: RootStore.Get(BlinkoStore).curSelectedNote!.id!,
                 isCancel: true,
               })
@@ -238,12 +239,13 @@ export const BlinkoShareDialog = observer(({ defaultSettings }: ShareDialogProps
         }
         <Button color="primary" className="w-full" onPress={async () => {
           const res = await RootStore.Get(BlinkoStore).shareNote.call({
+            // biome-ignore lint/style/noNonNullAssertion: <explanation>
             id: RootStore.Get(BlinkoStore).curSelectedNote!.id!,
             isCancel: false,
             password: isPublic ? "" : settings.password,
             expireAt: settings.expiryDate
           })
-          setShareUrl(window.location.origin + '/share/' + (res?.shareEncryptedUrl ?? '') + (isPublic ? '' : '?password=' + (settings.password ?? '')))
+          setShareUrl(`${window.location.origin}/share/${res?.shareEncryptedUrl ?? ''}${isPublic ? '' : `?password=${settings.password ?? ''}`}`)
           setIsShare(true)
         }}>
           {t("create-share")}

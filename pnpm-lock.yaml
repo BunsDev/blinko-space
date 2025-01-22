@@ -39,7 +39,7 @@ importers:
         specifier: ^0.3.26
         version: 0.3.26(brzfwp7evtpbz7st5qgqumdvnq)
       '@langchain/core':
-        specifier: ^0.3.33
+        specifier: ^0.3.13
         version: 0.3.33(openai@4.79.4(encoding@0.1.13)(ws@8.18.0)(zod@3.24.1))
       '@langchain/ollama':
         specifier: ^0.1.4
@@ -16039,7 +16039,7 @@ snapshots:
   axios@1.7.4(debug@4.4.0):
     dependencies:
       follow-redirects: 1.15.9(debug@4.4.0)
-      form-data: 4.0.0
+      form-data: 4.0.1
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug

@@ -1,13 +1,12 @@
 import { PrismaClient } from '@prisma/client'
-
-import { randomBytes, pbkdf2 } from 'crypto'
+import { randomBytes, pbkdf2 } from 'node:crypto'
 
 export async function hashPassword(password: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const salt = randomBytes(16).toString('hex');
     pbkdf2(password, salt, 1000, 64, 'sha512', (err, derivedKey) => {
       if (err) reject(err);
-      resolve('pbkdf2:' + salt + ':' + derivedKey.toString('hex'));
+      resolve(`pbkdf2:${salt}:${derivedKey.toString('hex')}`);
     });
   });
 }
