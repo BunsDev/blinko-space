@@ -50,12 +50,14 @@ export const ShowEditTimeModel = () => {
         <div className="flex flex-col gap-4 p-4">
           <DatePicker
             label={i18n.t('created-at')}
+            // @ts-ignore
             value={createdAt}
             onChange={setCreatedAt}
             labelPlacement="outside"
-          />
+            />
           <DatePicker
             label={i18n.t('updated-at')}
+            // @ts-ignore
             value={updatedAt}
             onChange={setUpdatedAt}
             labelPlacement="outside"

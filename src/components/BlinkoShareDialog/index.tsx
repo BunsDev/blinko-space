@@ -147,11 +147,13 @@ export const BlinkoShareDialog = observer(({ defaultSettings }: ShareDialogProps
                 <div className="p-1 bg-content1">
                   <Calendar
                     minValue={today(getLocalTimeZone())}
+                    // @ts-ignore
                     value={settings.expiryDate ? parseDate(dayjs(settings.expiryDate).format('YYYY-MM-DD')) : today(getLocalTimeZone()).add({ days: 1 })}
                     onChange={(date) => {
                       if (date) {
                         setSettings({
                           ...settings,
+                          // @ts-ignore
                           expiryDate: new Date(date.toString())
                         });
                         setIsCalendarOpen(false);
