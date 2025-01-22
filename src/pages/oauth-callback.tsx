@@ -39,7 +39,9 @@ export default function OAuthCallback() {
       } catch (error) {
         console.error('OAuth callback error:', error);
         RootStore.Get(ToastPlugin).error(t('login-failed'));
-        router.push('/signin');
+        // router.push('/signin');
+// todo fix
+        router.push('/oath');
       }
     };
 
